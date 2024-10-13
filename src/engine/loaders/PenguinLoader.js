@@ -43,10 +43,26 @@ export default class PenguinLoader {
     addName(penguin) {
         let x = penguin.x
         let y = penguin.y + 40
-        let nameTag = penguin.room.add.text(x, y, penguin.username, this.nameStyle)
+
+        let nameStyle = {
+            fontFamily: 'Burbank Small',
+            fontSize: 24,
+            color: '#161616',
+            align: 'center',
+            fixedWidth: 250
+        }
+
+        // Check if the penguin is the client
+        if (penguin.id === this.world.client.id) {
+            // Add stroke to the name style for the client
+            nameStyle = { ...nameStyle, color: "#fefefe", stroke: '#161616', strokeThickness: 8 };
+            // nameStyle = { ...nameStyle, color: "#fefefe", stroke: '#161616', strokeThickness: 8 };
+        }
+
+        let nameTag = penguin.room.add.text(x, y, penguin.username, nameStyle)
 
         nameTag.setOrigin(0.5)
-        nameTag.depth = penguin.depth + 2000 // Keep nametag above everything else
+        nameTag.depth = penguin.depth + 2000
 
         return nameTag
     }
